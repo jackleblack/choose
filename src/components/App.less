@@ -1,24 +1,23 @@
-@import (css) "https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600&display=swap";
+@import (css) "https://fonts.googleapis.com/css?family=Nunito+Sans:300, 400, 600&display=swap";
 @import "../variables.less";
 
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
+body,
+html {
   margin: 0;
   background-color: var(--secondary-white);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-family: "Nunito Sans", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Nunito Sans", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,
+#root,
 body,
-#root {
+html {
   height: 100%;
 }
 
@@ -30,10 +29,7 @@ body,
 .app {
   display: grid;
   grid-template-rows: minmax(75px, 80px) 75% minmax(10%, auto);
-  grid-template-areas:
-    "header"
-    "content"
-    "footer";
+  grid-template-areas: "header" "content" "footer";
   height: 100%;
 
   &__btn {
