@@ -25,7 +25,7 @@ const Menu = () => (
           >
             <i className="fas fa-chart-area pr-0 md:pr-3 "></i>
             <span className="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">
-              Analytics
+              Pro & Cons
             </span>
           </NavLink>
         </li>
