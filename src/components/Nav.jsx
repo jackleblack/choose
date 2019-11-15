@@ -83,13 +83,13 @@ const Nav = () => {
             </li>
             <li className="flex-1 md:flex-none md:mr-3">
               <div className="relative inline-block">
-                <button
+                {/* <button
                   type="button"
                   className="app__btn theme-toggle"
                   onClick={toggleTheme}
                 >
                   {currentTheme === "lightTheme" ? "🌑" : "�"}
-                </button>
+                </button> */}
                 <button
                   onClick="toggleDD('myDropdown')"
                   className="drop-button text-white focus:outline-none"

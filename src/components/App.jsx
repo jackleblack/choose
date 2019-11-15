@@ -4,7 +4,12 @@ import ProAndCons from "./ProAndCons";
 import Menu from "./Menu";
 import Nav from "./Nav";
 import { withFirebase } from "../firebase/withFirebase";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 
 const App = props => {
   return (
@@ -22,7 +27,7 @@ const App = props => {
                 <ProAndCons />
               </Route>
               <Route path="/">
-                <Todos />
+                <Redirect to="/todos" />
               </Route>
             </Switch>
           </div>
