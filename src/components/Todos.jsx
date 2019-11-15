@@ -3,17 +3,17 @@ import Todo from "./Todo";
 import { withFirebase } from "../firebase/withFirebase";
 
 const Todos = props => {
-  const { ideasCollection } = props.firebase;
+  const { todosCollection } = props.firebase;
 
-  const ideasContainer = useRef(null);
+  const todosContainer = useRef(null);
   const [todo, setTodoInput] = useState("");
-  const [ideas, setTodos] = useState([]);
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = ideasCollection
+    const unsubscribe = todosCollection
       .orderBy("timestamp", "desc")
       .onSnapshot(({ docs }) => {
-        const ideasFromDB = [];
+        const todosFromDB = [];
 
         docs.forEach(doc => {
           const details = {
@@ -23,10 +23,10 @@ const Todos = props => {
             isDone: doc.data().isDone
           };
 
-          ideasFromDB.push(details);
+          todosFromDB.push(details);
         });
 
-        setTodos(ideasFromDB);
+        setTodos(todosFromDB);
       });
 
     return () => unsubscribe();
@@ -38,7 +38,7 @@ const Todos = props => {
 
   const onTodoDelete = event => {
     const { id } = event.target;
-    ideasCollection.doc(id).delete();
+    todosCollection.doc(id).delete();
   };
 
   const onTodoAdd = event => {
@@ -47,25 +47,25 @@ const Todos = props => {
     if (!todo.trim().length) return;
 
     setTodoInput("");
-    ideasContainer.current.scrollTop = 0; // scroll to top of container
+    todosContainer.current.scrollTop = 0; // scroll to top of container
 
-    ideasCollection.add({ todo, timestamp: new Date() });
+    todosCollection.add({ todo, timestamp: new Date() });
   };
 
   const onTodoDone = event => {
     const { id } = event.target;
-    ideasCollection.doc(id).update({ isDone: 1 });
+    todosCollection.doc(id).update({ isDone: 1 });
   };
 
   const onTodoUndone = event => {
     const { id } = event.target;
-    ideasCollection.doc(id).update({ isDone: 0 });
+    todosCollection.doc(id).update({ isDone: 0 });
   };
 
   const renderTodos = () => {
-    if (!ideas.length) return <h2 className="">Add a new Todo...</h2>;
+    if (!todos.length) return <h2 className="">Add a new Todo...</h2>;
 
-    return ideas.map(todo => (
+    return todos.map(todo => (
       <Todo
         key={todo.id}
         todo={todo}
@@ -82,7 +82,7 @@ const Todos = props => {
         <div className="mb-4">
           <h1 className="text-grey-darkest">Todo List</h1>
           <div className="flex mt-4">
-            <form onSubmit={onTodoAdd} className="w-full max-w-lg">
+            <form onSubmit={onTodoAdd} class="w-full max-w-lg">
               <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
                 <input
                   value={todo}
@@ -109,7 +109,7 @@ const Todos = props => {
             </form>
           </div>
         </div>
-        <div ref={ideasContainer}>{renderTodos()}</div>
+        <div ref={todosContainer}>{renderTodos()}</div>
       </div>
     </div>
   );

@@ -3,17 +3,17 @@ import ProAndCon from "./ProAndCon";
 import { withFirebase } from "../firebase/withFirebase";
 
 const ProAndCons = props => {
-  const { ideasCollection } = props.firebase;
+  const { proAndConsCollection } = props.firebase;
 
-  const ideasContainer = useRef(null);
+  const proAndConsContainer = useRef(null);
   const [proAndCon, setProAndConInput] = useState("");
-  const [ideas, setProAndCons] = useState([]);
+  const [proAndCons, setProAndCons] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = ideasCollection
+    const unsubscribe = proAndConsCollection
       .orderBy("timestamp", "desc")
       .onSnapshot(({ docs }) => {
-        const ideasFromDB = [];
+        const proAndConsFromDB = [];
 
         docs.forEach(doc => {
           const details = {
@@ -23,10 +23,10 @@ const ProAndCons = props => {
             isDone: doc.data().isDone
           };
 
-          ideasFromDB.push(details);
+          proAndConsFromDB.push(details);
         });
 
-        setProAndCons(ideasFromDB);
+        setProAndCons(proAndConsFromDB);
       });
 
     return () => unsubscribe();
@@ -38,7 +38,7 @@ const ProAndCons = props => {
 
   const onProAndConDelete = event => {
     const { id } = event.target;
-    ideasCollection.doc(id).delete();
+    proAndConsCollection.doc(id).delete();
   };
 
   const onProAndConAdd = event => {
@@ -47,25 +47,25 @@ const ProAndCons = props => {
     if (!proAndCon.trim().length) return;
 
     setProAndConInput("");
-    ideasContainer.current.scrollTop = 0; // scroll to top of container
+    proAndConsContainer.current.scrollTop = 0; // scroll to top of container
 
-    ideasCollection.add({ proAndCon, timestamp: new Date() });
+    proAndConsCollection.add({ proAndCon, timestamp: new Date() });
   };
 
   const onProAndConDone = event => {
     const { id } = event.target;
-    ideasCollection.doc(id).update({ isDone: 1 });
+    proAndConsCollection.doc(id).update({ isDone: 1 });
   };
 
   const onProAndConUndone = event => {
     const { id } = event.target;
-    ideasCollection.doc(id).update({ isDone: 0 });
+    proAndConsCollection.doc(id).update({ isDone: 0 });
   };
 
   const renderProAndCons = () => {
-    if (!ideas.length) return <h2 className="">Add a new ProAndCon...</h2>;
+    if (!proAndCons.length) return <h2 className="">Add a new ProAndCon...</h2>;
 
-    return ideas.map(proAndCon => (
+    return proAndCons.map(proAndCon => (
       <ProAndCon
         key={proAndCon.id}
         proAndCon={proAndCon}
@@ -109,7 +109,7 @@ const ProAndCons = props => {
             </form>
           </div>
         </div>
-        <div ref={ideasContainer}>{renderProAndCons()}</div>
+        <div ref={proAndConsContainer}>{renderProAndCons()}</div>
       </div>
     </div>
   );
