@@ -27,12 +27,12 @@ const Nav = () => {
         <div className="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
           <a href="#">
             <span className="text-xl pl-2">
-              <div class="loader triangle">
+              <div className="loader triangle">
                 <svg viewBox="0 0 86 80">
                   <polygon points="43 8 79 72 7 72" fill="white"></polygon>
                 </svg>
               </div>
-              <div class="loader">
+              <div className="loader">
                 <svg viewBox="0 0 80 80">
                   <rect x="8" y="8" width="64" height="64" fill="white"></rect>
                 </svg>

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import Todo from "./Todo";
+import ProAndCon from "./ProAndCon";
 import { withFirebase } from "../firebase/withFirebase";
 
-const Todos = props => {
+const ProAndCons = props => {
   const { ideasCollection } = props.firebase;
 
   const ideasContainer = useRef(null);
-  const [todo, setTodoInput] = useState("");
-  const [ideas, setTodos] = useState([]);
+  const [proAndCon, setProAndConInput] = useState("");
+  const [ideas, setProAndCons] = useState([]);
 
   useEffect(() => {
     const unsubscribe = ideasCollection
@@ -18,7 +18,7 @@ const Todos = props => {
         docs.forEach(doc => {
           const details = {
             id: doc.id,
-            content: doc.data().todo,
+            content: doc.data().proAndCon,
             timestamp: doc.data().timestamp,
             isDone: doc.data().isDone
           };
@@ -26,52 +26,52 @@ const Todos = props => {
           ideasFromDB.push(details);
         });
 
-        setTodos(ideasFromDB);
+        setProAndCons(ideasFromDB);
       });
 
     return () => unsubscribe();
   }, []);
 
-  const onTodoClear = event => {
-    setTodoInput("");
+  const onProAndConClear = event => {
+    setProAndConInput("");
   };
 
-  const onTodoDelete = event => {
+  const onProAndConDelete = event => {
     const { id } = event.target;
     ideasCollection.doc(id).delete();
   };
 
-  const onTodoAdd = event => {
+  const onProAndConAdd = event => {
     event.preventDefault();
 
-    if (!todo.trim().length) return;
+    if (!proAndCon.trim().length) return;
 
-    setTodoInput("");
+    setProAndConInput("");
     ideasContainer.current.scrollTop = 0; // scroll to top of container
 
-    ideasCollection.add({ todo, timestamp: new Date() });
+    ideasCollection.add({ proAndCon, timestamp: new Date() });
   };
 
-  const onTodoDone = event => {
+  const onProAndConDone = event => {
     const { id } = event.target;
     ideasCollection.doc(id).update({ isDone: 1 });
   };
 
-  const onTodoUndone = event => {
+  const onProAndConUndone = event => {
     const { id } = event.target;
     ideasCollection.doc(id).update({ isDone: 0 });
   };
 
-  const renderTodos = () => {
-    if (!ideas.length) return <h2 className="">Add a new Todo...</h2>;
+  const renderProAndCons = () => {
+    if (!ideas.length) return <h2 className="">Add a new ProAndCon...</h2>;
 
-    return ideas.map(todo => (
-      <Todo
-        key={todo.id}
-        todo={todo}
-        onDelete={onTodoDelete}
-        onDone={onTodoDone}
-        onUndone={onTodoUndone}
+    return ideas.map(proAndCon => (
+      <ProAndCon
+        key={proAndCon.id}
+        proAndCon={proAndCon}
+        onDelete={onProAndConDelete}
+        onDone={onProAndConDone}
+        onUndone={onProAndConUndone}
       />
     ));
   };
@@ -80,13 +80,13 @@ const Todos = props => {
     <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 ">
         <div className="mb-4">
-          <h1 className="text-grey-darkest">Todo List</h1>
+          <h1 className="text-grey-darkest">ProAndCon List</h1>
           <div className="flex mt-4">
-            <form onSubmit={onTodoAdd} className="w-full max-w-lg">
+            <form onSubmit={onProAndConAdd} className="w-full max-w-lg">
               <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
                 <input
-                  value={todo}
-                  onChange={e => setTodoInput(e.target.value)}
+                  value={proAndCon}
+                  onChange={e => setProAndConInput(e.target.value)}
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
                   placeholder="Fais ton lit"
@@ -99,7 +99,7 @@ const Todos = props => {
                   Add
                 </button>
                 <button
-                  onClick={e => setTodoInput("")}
+                  onClick={e => setProAndConInput("")}
                   className="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
                   type="button"
                 >
@@ -109,10 +109,10 @@ const Todos = props => {
             </form>
           </div>
         </div>
-        <div ref={ideasContainer}>{renderTodos()}</div>
+        <div ref={ideasContainer}>{renderProAndCons()}</div>
       </div>
     </div>
   );
 };
 
-export default withFirebase(Todos);
+export default withFirebase(ProAndCons);
