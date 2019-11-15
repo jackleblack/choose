@@ -1,10 +1,29 @@
 import React from "react";
-import "./Idea.less";
-const Idea = ({ idea, onDelete }) => (
-  <div className="app__content__idea">
-    <p className="app__content__idea__text">{idea.content}</p>
-    <button type="button" className="app__btn app__content__idea__btn" id={idea.id} onClick={onDelete}>
-      –
+
+const Idea = ({ idea, onDelete, onDone, onUndone }) => (
+  <div className="flex mb-4 items-center">
+    <p className={`w-full " ${idea.isDone ? "text-green-500 line-through" : "text-grey-darkest"}`}>
+    {idea.content}
+    </p>
+    { idea.isDone ? 
+      <button 
+      id={idea.id}
+      onClick={onUndone}
+      className="flex-shrink-0 p-2 ml-4 mr-2 bg-grey-500 hover:bg-grey-700 border-grey-500 hover:border-grey-700 text-sm border-4 text-grey rounded" type="submit">
+      Undone</button>
+    : 
+    <button 
+        id={idea.id}
+        onClick={onDone}
+        className="flex-shrink-0 p-2 ml-4 mr-2 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white rounded" type="submit">
+        Done</button>
+    }
+    
+    <button
+      id={idea.id}
+      onClick={onDelete}
+      className="flex-shrink-0 p-2 ml-2 mr-2 bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700 text-sm border-4 text-white rounded" type="submit">
+      Delete
     </button>
   </div>
 );

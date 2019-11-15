@@ -1,41 +1,21 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Ideas from "./Ideas";
-import {withFirebase} from "../firebase/withFirebase";
-import * as theme from "../theme";
-import "./App.less";
+import Menu from "./Menu";
+import Nav from "./Nav";
+import { withFirebase } from "../firebase/withFirebase";
 
 const App = props => {
-  const [currentTheme, setCurrentTheme] = useState("lightTheme");
-
-  const toggleTheme = () => {
-    const newTheme = currentTheme === "lightTheme"
-      ? "darkTheme"
-      : "lightTheme";
-    setCurrentTheme(newTheme);
-  };
-
-  useEffect(() => {
-    const selectedTheme = theme[currentTheme];
-
-    Object.keys(selectedTheme).forEach(variable => {
-      document.documentElement.style.setProperty(variable, selectedTheme[variable]);
-    });
-  }, [currentTheme]);
-
-  return (<div className="app">
-    <header className="app__header">
-      <h1 className="app__header__h1">Idea Box</h1>
-      <button type="button" className="app__btn theme-toggle" onClick={toggleTheme}>
-        {
-          currentTheme === "lightTheme"
-            ? "🌑"
-            : "🌕"
-        }
-      </button>
-    </header>
-
-    <Ideas/>
-  </div>);
+  return (
+    <div className="app">
+      <Nav />
+      <div className="flex flex-col md:flex-row">
+        <Menu />
+        <div className="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+          <Ideas />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default withFirebase(App);

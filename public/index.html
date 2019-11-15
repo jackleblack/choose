@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Lists PWA</title>
-    <link rel="shortcut icon" href="icons/icon-128x128.png" />
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="icons/icon-512x512.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="Lists PWA" />
-    <meta name="theme-color" content="#39c16c" />
-    <meta name="description" content="Lists PWA with React" />
+    <link rel="shortcut icon" href="icons/icon-128x128.png"/>
+    <link rel="manifest" href="manifest.webmanifest"/>
+    <link rel="apple-touch-icon" href="icons/icon-512x512.png"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-title" content="Lists PWA"/>
+    <meta name="theme-color" content="#39c16c"/>
+    <meta name="description" content="Lists PWA with React"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> <!--Replace with your tailwind.css once created-->
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"> <!--Totally optional :) -->
+    
   </head>
-  <body>
+
+  <body class="bg-gray-900 font-sans leading-normal tracking-normal mt-12">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="../src/index.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("serviceWorker.js");
+          navigator
+            .serviceWorker
+            .register("serviceWorker.js");
         });
       }
     </script>
   </body>
+
 </html>
