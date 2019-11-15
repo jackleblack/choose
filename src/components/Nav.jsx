@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as theme from "../theme";
+import "./Nav.less";
 
 const Nav = () => {
   const [currentTheme, setCurrentTheme] = useState("lightTheme");
@@ -26,7 +27,16 @@ const Nav = () => {
         <div className="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
           <a href="#">
             <span className="text-xl pl-2">
-              <i className="em em-grinning"></i>
+              <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                  <polygon points="43 8 79 72 7 72" fill="white"></polygon>
+                </svg>
+              </div>
+              <div class="loader">
+                <svg viewBox="0 0 80 80">
+                  <rect x="8" y="8" width="64" height="64" fill="white"></rect>
+                </svg>
+              </div>
             </span>
           </a>
         </div>
@@ -84,11 +94,10 @@ const Nav = () => {
                   onClick="toggleDD('myDropdown')"
                   className="drop-button text-white focus:outline-none"
                 >
-                  {" "}
                   <span className="pr-2">
                     <i className="em em-robot_face"></i>
-                  </span>{" "}
-                  Hi, User{" "}
+                  </span>
+                  Hi, Giuliano
                   <svg
                     className="h-3 fill-current inline"
                     xmlns="http://www.w3.org/2000/svg"
